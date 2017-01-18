@@ -9,4 +9,6 @@ object Constants {
     val MB = 1024 * 1024
 
     val GB = 1024 * 1024 * 1024
+
+    val DEFAULT_STATUS_BAR_ALPHA = 112
 }
