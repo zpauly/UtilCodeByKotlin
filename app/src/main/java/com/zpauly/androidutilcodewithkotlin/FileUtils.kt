@@ -331,6 +331,42 @@ fun deleteFile(file: File?): Boolean
         = (file != null) && (!file.exists() || file.isFile && file.delete())
 
 /**
+ * 删除目录下的所有文件
+ *
+ * @param dirPath 目录路径
+ * @return boolean
+ */
+fun deleteFilesInDir(dirPath: String?):Boolean
+        = deleteFilesInDir(getFileByPath(dirPath))
+
+/**
+ * 删除目录下的所有文件
+ *
+ * @param dir 目录
+ * @return boolean
+ */
+fun deleteFilesInDir(dir: File?): Boolean {
+    if (dir == null || !dir.exists()) {
+        return false
+    }
+    if (!dir.isDirectory) {
+        return false
+    }
+    dir.listFiles().map {
+        if (it.isFile) {
+            if (!deleteFile(it)) {
+                return false
+            }
+        } else if (it.isDirectory) {
+            if (!deleteDir(it)) {
+                return false
+            }
+        }
+    }
+    return true
+}
+
+/**
  * 获取目录下所有的文件包括子目录
  *
  * @param dirPath 目录
